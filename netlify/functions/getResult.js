@@ -7,14 +7,25 @@ const admin = require('firebase-admin');
 
 // Initialize Firebase Admin SDK (only once)
 if (!admin.apps.length) {
-  // For Netlify, decode base64-encoded service account from environment variable
-  const serviceAccount = JSON.parse(
-    Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf8')
-  );
+  try {
+    // For Netlify, decode base64-encoded service account from environment variable
+    if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set');
+    }
 
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
+    const serviceAccount = JSON.parse(
+      Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf8')
+    );
+
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });
+
+    console.log('✅ Firebase Admin initialized successfully');
+  } catch (error) {
+    console.error('❌ Firebase initialization failed:', error.message);
+    throw error;
+  }
 }
 
 /**
