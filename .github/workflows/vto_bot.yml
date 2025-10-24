@@ -20,10 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: |
-            react-dev-app/package-lock.json
-            github-bot/package-lock.json
 
       # Step 3: Setup Firebase Service Account credentials
       - name: Create Firebase credentials file
