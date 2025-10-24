@@ -30,7 +30,7 @@ jobs:
       # Step 4: Install React app dependencies
       - name: Install React app dependencies
         working-directory: ./react-dev-app
-        run: npm ci
+        run: npm install
 
       # Step 5: Start React dev server in background (localhost:3000)
       - name: Start React dev server
@@ -53,7 +53,7 @@ jobs:
       - name: Install bot dependencies
         working-directory: ./github-bot
         run: |
-          npm ci
+          npm install
           npx playwright install chromium
           npx playwright install-deps chromium
 
