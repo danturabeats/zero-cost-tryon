@@ -1,0 +1,81 @@
+# Dependencies
+node_modules/
+react-dev-app/node_modules/
+firebase-functions/node_modules/
+github-bot/node_modules/
+package-lock.json
+react-dev-app/package-lock.json
+firebase-functions/package-lock.json
+github-bot/package-lock.json
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+react-dev-app/.env.local
+firebase-functions/.runtimeconfig.json
+
+# Build Outputs
+react-dev-app/dist/
+react-dev-app/build/
+firebase-functions/lib/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+firebase-debug.log
+firebase-debug.*.log
+
+# Firebase
+.firebase/
+.firebaserc
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary Files
+*.tmp
+*.temp
+temp/
+tmp/
+github-bot/temp_*.jpg
+github-bot/temp_*.png
+
+# Sensitive Files
+firebase-key.json
+service-account*.json
+*-credentials.json
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.bak
+*.orig
+
+# Firebase Service Account Keys
+*.json
+firebase-key-base64.txt
+base44-*.json

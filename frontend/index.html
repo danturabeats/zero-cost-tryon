@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדידה וירטואלית חינם - Fit Check AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #1a202c;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #4a5568;
+        }
+
+        .file-input-label:hover {
+            background: #edf2f7;
+            border-color: #667eea;
+        }
+
+        .file-input-label.has-file {
+            background: #e6fffa;
+            border-color: #38b2ac;
+            border-style: solid;
+        }
+
+        .file-name {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #38b2ac;
+            font-weight: 500;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            direction: ltr;
+            text-align: right;
+        }
+
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button[type="submit"]:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border-right: 4px solid #c53030;
+        }
+
+        .success {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-right: 4px solid #38a169;
+        }
+
+        .success h2 {
+            color: #22543d;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: #ebf8ff;
+            border-right: 4px solid #3182ce;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: #2c5282;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 מדידה וירטואלית מופעלת AI</h1>
+        <p class="subtitle">העלו תמונה שלכם ושל הפריט - נחזיר תוצאה במייל תוך ~2 דקות</p>
+
+        <div class="info-box">
+            <strong>💡 איך זה עובד?</strong><br>
+            AI מתקדם יוצר לכם תמונה מדויקת של איך הבגד ייראה עליכם. התהליך אוטומטי לחלוטין וחינמי!
+        </div>
+
+        <div id="error-message" class="error" style="display: none;"></div>
+        <div id="success-message" class="success" style="display: none;">
+            <h2>✅ הבקשה התקבלה בהצלחה!</h2>
+            <p>התמונה שלכם בתהליך עיבוד.<br>התוצאה תשלח למייל שלכם תוך 2-3 דקות.</p>
+        </div>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>שולח את הבקשה...</p>
+        </div>
+
+        <form id="tryon-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="user-photo">📸 התמונה שלכם (פנים + גוף)</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="user-photo" name="user_photo" accept="image/*" required>
+                    <label for="user-photo" class="file-input-label" id="user-photo-label">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        לחצו להעלאת תמונה
+                    </label>
+                    <span class="file-name" id="user-photo-name"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="garment-photo">👕 תמונת הפריט לבדיקה</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="garment-photo" name="garment_photo" accept="image/*" required>
+                    <label for="garment-photo" class="file-input-label" id="garment-photo-label">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        לחצו להעלאת תמונת הבגד
+                    </label>
+                    <span class="file-name" id="garment-photo-name"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">📧 כתובת המייל שלכם</label>
+                <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+            </div>
+
+            <button type="submit" id="submit-btn">
+                <svg class="icon" style="display: inline-block; vertical-align: middle;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                שלחו למדידה וירטואלית
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // File input handlers
+        document.getElementById('user-photo').addEventListener('change', function(e) {
+            const label = document.getElementById('user-photo-label');
+            const nameDisplay = document.getElementById('user-photo-name');
+            if (e.target.files.length > 0) {
+                label.classList.add('has-file');
+                nameDisplay.textContent = '✓ ' + e.target.files[0].name;
+            } else {
+                label.classList.remove('has-file');
+                nameDisplay.textContent = '';
+            }
+        });
+
+        document.getElementById('garment-photo').addEventListener('change', function(e) {
+            const label = document.getElementById('garment-photo-label');
+            const nameDisplay = document.getElementById('garment-photo-name');
+            if (e.target.files.length > 0) {
+                label.classList.add('has-file');
+                nameDisplay.textContent = '✓ ' + e.target.files[0].name;
+            } else {
+                label.classList.remove('has-file');
+                nameDisplay.textContent = '';
+            }
+        });
+
+        // Form submission
+        document.getElementById('tryon-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitBtn = document.getElementById('submit-btn');
+            const loading = document.getElementById('loading');
+            const errorMsg = document.getElementById('error-message');
+            const successMsg = document.getElementById('success-message');
+
+            // Hide previous messages
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+
+            // Show loading
+            form.style.display = 'none';
+            loading.style.display = 'block';
+
+            try {
+                // Netlify Function endpoint (will work automatically after deployment)
+                const API_URL = '/api/submitTryOn';
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    loading.style.display = 'none';
+                    successMsg.style.display = 'block';
+                } else {
+                    throw new Error(data.error || 'שגיאה בשליחת הבקשה');
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                form.style.display = 'block';
+                errorMsg.textContent = '❌ ' + error.message;
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

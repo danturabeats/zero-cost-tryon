@@ -1,0 +1,30 @@
+# Netlify Configuration for Zero-Cost Virtual Try-On System
+
+[build]
+  # Publish directory (static HTML form)
+  publish = "frontend"
+
+  # Functions directory
+  functions = "netlify/functions"
+
+# Redirect rules
+[[redirects]]
+  # API endpoint for submitting try-on requests
+  from = "/api/submitTryOn"
+  to = "/.netlify/functions/submitTryOn"
+  status = 200
+
+[[redirects]]
+  # API endpoint for getting results
+  from = "/api/getResult"
+  to = "/.netlify/functions/getResult"
+  status = 200
+
+# Environment variables (to be configured in Netlify dashboard)
+# Required variables:
+# - CLOUDINARY_CLOUD_NAME
+# - CLOUDINARY_API_KEY
+# - CLOUDINARY_API_SECRET
+# - GITHUB_TOKEN
+# - GITHUB_REPO
+# - GOOGLE_APPLICATION_CREDENTIALS (Firebase service account JSON as base64)
