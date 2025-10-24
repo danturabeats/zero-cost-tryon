@@ -1,0 +1,27 @@
+{
+  "name": "zero-cost-tryon",
+  "version": "1.0.0",
+  "description": "Zero-cost AI-powered virtual try-on system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danturabeats/zero-cost-tryon.git"
+  },
+  "keywords": [
+    "virtual-try-on",
+    "ai",
+    "netlify",
+    "cloudinary"
+  ],
+  "author": "danturabeats",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "busboy": "^1.6.0",
+    "axios": "^1.6.0",
+    "cloudinary": "^2.8.0"
+  }
+}
